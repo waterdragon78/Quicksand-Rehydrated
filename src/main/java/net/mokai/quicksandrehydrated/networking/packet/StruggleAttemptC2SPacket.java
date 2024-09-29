@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
-import net.mokai.quicksandrehydrated.block.quicksands.core.QuicksandBase;
+import net.mokai.quicksandrehydrated.block.quicksands.core.SinkableBase;
 import net.mokai.quicksandrehydrated.networking.ModMessages;
 
 import java.util.Random;
@@ -39,12 +39,12 @@ public class StruggleAttemptC2SPacket {
 
             System.out.println("<Server>: Struggle Attempt");
 
-            if (playerBlock instanceof QuicksandBase) {
+            if (playerBlock instanceof SinkableBase) {
 
                 Random rand = new Random();
                 double amount = rand.nextDouble(0.0, 1.0);
 
-                QuicksandBase playerQuicksand = (QuicksandBase) playerBlock;
+                SinkableBase playerQuicksand = (SinkableBase) playerBlock;
                 player.addDeltaMovement(new Vec3(0.0, amount, 0.0));
 
                 UUID playerId = player.getUUID();

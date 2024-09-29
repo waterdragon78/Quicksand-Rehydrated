@@ -2,17 +2,13 @@ package net.mokai.quicksandrehydrated.block.quicksands.core;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -20,29 +16,21 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Fallable;
-import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.mokai.quicksandrehydrated.entity.EntityBubble;
-import net.mokai.quicksandrehydrated.util.EasingHandler;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
-import static net.mokai.quicksandrehydrated.util.ModTags.Blocks.QUICKSAND_DROWNABLE;
-import static net.mokai.quicksandrehydrated.util.ModTags.Fluids.QUICKSAND_DROWNABLE_FLUID;
-
-public class FlowingQuicksandBase extends QuicksandBase implements QuicksandInterface, Fallable {
+public class FlowingSinkableBase extends SinkableBase implements SinkableInterface, Fallable {
 
     private final Random rng = new Random();
 
-    public FlowingQuicksandBase(Properties pProperties, QuicksandBehavior QSB) {super(pProperties, QSB);
+    public FlowingSinkableBase(Properties pProperties, SinkableBehavior QSB) {super(pProperties, QSB);
         this.registerDefaultState(this.stateDefinition.any().setValue(LEVEL, 2));
     }
 

@@ -1,20 +1,15 @@
 package net.mokai.quicksandrehydrated.block.quicksands;
 
-import net.mokai.quicksandrehydrated.block.quicksands.core.QuicksandBase;
+import net.mokai.quicksandrehydrated.block.quicksands.core.SinkableBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.mokai.quicksandrehydrated.block.quicksands.core.QuicksandBehavior;
-import net.mokai.quicksandrehydrated.entity.SinkModules.SinkQuicksand;
+import net.mokai.quicksandrehydrated.block.quicksands.core.SinkableBehavior;
+import net.mokai.quicksandrehydrated.entity.SinkModules.SinkDataBase;
 import net.mokai.quicksandrehydrated.entity.entityQuicksandVar;
-import net.mokai.quicksandrehydrated.util.EasingHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
@@ -22,8 +17,10 @@ import java.util.Random;
 import static org.joml.Math.abs;
 import static org.joml.Math.clamp;
 
-public class Quicksand extends QuicksandBase {
-    public Quicksand(Properties pProperties, QuicksandBehavior QSB) {super(pProperties, QSB);}
+public class Sinkable extends SinkableBase {
+    public Sinkable(Properties pProperties, SinkableBehavior QSB) {super(pProperties, QSB);}
+
+    //TODO: generalize this
 
     @Override
     public void firstTouch(Entity pEntity, Level pLevel) {
@@ -31,8 +28,8 @@ public class Quicksand extends QuicksandBase {
 
         entityQuicksandVar pQSEnt = (entityQuicksandVar)pEntity;
 
-        if (!pQSEnt.hasSinkModule(SinkQuicksand.class)) {
-            SinkQuicksand qs_module = new SinkQuicksand();
+        if (!pQSEnt.hasSinkModule(SinkDataBase.class)) {
+            SinkDataBase qs_module = new SinkDataBase();
             pQSEnt.addSinkModule(qs_module);
         }
 

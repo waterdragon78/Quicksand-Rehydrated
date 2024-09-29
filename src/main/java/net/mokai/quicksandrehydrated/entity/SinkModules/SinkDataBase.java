@@ -3,12 +3,10 @@ package net.mokai.quicksandrehydrated.entity.SinkModules;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
-import net.mokai.quicksandrehydrated.block.quicksands.Quicksand;
 
 import static org.joml.Math.clamp;
 
-public class SinkQuicksand implements SinkDataInterface {
+public class SinkDataBase implements SinkDataInterface {
 
     int ticks = 60*5;
     int timer = 0;

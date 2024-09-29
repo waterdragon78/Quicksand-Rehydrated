@@ -14,8 +14,8 @@ import net.minecraftforge.registries.RegistryObject;
 import net.mokai.quicksandrehydrated.QuicksandRehydrated;
 import net.mokai.quicksandrehydrated.block.*;
 import net.mokai.quicksandrehydrated.block.quicksands.*;
-import net.mokai.quicksandrehydrated.block.quicksands.core.FlowingQuicksandBase;
-import net.mokai.quicksandrehydrated.block.quicksands.core.QuicksandBehavior;
+import net.mokai.quicksandrehydrated.block.quicksands.core.FlowingSinkableBase;
+import net.mokai.quicksandrehydrated.block.quicksands.core.SinkableBehavior;
 import net.mokai.quicksandrehydrated.util.DepthCurve;
 
 
@@ -45,13 +45,13 @@ public class ModBlocks {
     // canOcclude
 
     private final static BlockBehaviour.Properties baseFlowingBehavior = BlockBehaviour.Properties.copy(Blocks.SAND).noCollission().requiresCorrectToolForDrops()
-            .noOcclusion().isViewBlocking((A, B, C) -> A.getValue(FlowingQuicksandBase.LEVEL) >= 4);
+            .noOcclusion().isViewBlocking((A, B, C) -> A.getValue(FlowingSinkableBase.LEVEL) >= 4);
     private final static BlockBehaviour.Properties slimeBehavior =BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noCollission().requiresCorrectToolForDrops()
             .noOcclusion().isViewBlocking((A, B, C) -> true);
 
 
 
-    public static final RegistryObject<Block> QUICKSAND = registerBlock("quicksand", () -> new Quicksand( baseBehavior, new QuicksandBehavior()
+    public static final RegistryObject<Block> QUICKSAND = registerBlock("quicksand", () -> new Sinkable( baseBehavior, new SinkableBehavior()
             .setCoverageTexture("quicksand_coverage")
             .setSinkSpeed(.001d)
             .setVertSpeed(.025d)
@@ -62,7 +62,7 @@ public class ModBlocks {
 
 
 
-    public static final RegistryObject<Block> LIVING_SLIME = registerBlock("living_slime", () -> new LivingSlime( slimeBehavior, new QuicksandBehavior()
+    public static final RegistryObject<Block> LIVING_SLIME = registerBlock("living_slime", () -> new LivingSlime( slimeBehavior, new SinkableBehavior()
             .setTugPointSpeed(0.025d)
             .setTugStrengthHorizontal(new DepthCurve(0.08d, 0.06d))
             .setVertSpeed(.4d)
@@ -71,7 +71,7 @@ public class ModBlocks {
     ));
 
 
-    static QuicksandBehavior mudSinkable = new QuicksandBehavior()
+    static SinkableBehavior mudSinkable = new SinkableBehavior()
             .setOffset(.125)
             .setVertSpeed(.5d)
             .setSinkSpeed(0);
@@ -83,7 +83,7 @@ public class ModBlocks {
 
 
     
-    public static final RegistryObject<Block> SOFT_QUICKSAND = registerBlock("soft_quicksand", () -> new FlowingQuicksandBase(baseFlowingBehavior, new QuicksandBehavior()));
+    public static final RegistryObject<Block> SOFT_QUICKSAND = registerBlock("soft_quicksand", () -> new FlowingSinkableBase(baseFlowingBehavior, new SinkableBehavior()));
 
 
 

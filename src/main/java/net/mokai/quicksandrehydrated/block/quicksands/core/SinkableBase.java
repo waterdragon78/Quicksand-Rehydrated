@@ -16,7 +16,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.mokai.quicksandrehydrated.entity.EntityBubble;
 import net.mokai.quicksandrehydrated.entity.entityQuicksandVar;
 import net.mokai.quicksandrehydrated.entity.playerStruggling;
-import net.mokai.quicksandrehydrated.util.DepthCurve;
 import net.mokai.quicksandrehydrated.util.EasingHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,14 +36,14 @@ import static org.joml.Math.abs;
  * Override the specific methods to achieve non-default behavior when implementing other
  * sinking blocks.
  */
-public class QuicksandBase extends Block implements QuicksandInterface {
+public class SinkableBase extends Block implements SinkableInterface {
 
     private final Random rng = new Random();
 
-    public QuicksandBehavior QSBehavior;
-    public QuicksandBehavior getQuicksandBehavior() {return QSBehavior;}
+    public SinkableBehavior QSBehavior;
+    public SinkableBehavior getQuicksandBehavior() {return QSBehavior;}
 
-    public QuicksandBase(Properties pProperties, QuicksandBehavior QuicksandBehavior) {
+    public SinkableBase(Properties pProperties, SinkableBehavior QuicksandBehavior) {
         super(pProperties);
         this.QSBehavior = QuicksandBehavior;
     }
@@ -225,12 +224,8 @@ public class QuicksandBase extends Block implements QuicksandInterface {
             // By default, the tug position is constantly set to the entity's position, no
             // force is applied on the entity towards the position.
 
-            // Some movement stuff. Dealing with whether the entity is "OnGround"
-            // whether they can jump, and step out onto a solid block.
 
 
-
-            // Okay, so letting people jump on the top layer of the quicksand lets everyone just hold spacebar and jump over it all. I just commented it all out to disable it, and works better (tm)
 
             if (canStepOut(depth)) {
                 if (pLevel.getBlockState(pPos.above()).isAir()) {
@@ -358,8 +353,8 @@ public class QuicksandBase extends Block implements QuicksandInterface {
         if (checkDrownable(pState) && !checkDrownable(upOne)) {
             double offset = 0d;
             Block gb = pState.getBlock();
-            if (gb instanceof QuicksandInterface) {
-                offset = ((QuicksandInterface) gb).getOffset(pState);
+            if (gb instanceof SinkableInterface) {
+                offset = ((SinkableInterface) gb).getOffset(pState);
             }
             pos = pos.add(new Vec3(0, -offset, 0));
             spawnBubble(pLevel, pos);

@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.mokai.quicksandrehydrated.block.quicksands.core.QuicksandBase;
+import net.mokai.quicksandrehydrated.block.quicksands.core.SinkableBase;
 import net.mokai.quicksandrehydrated.entity.SinkModules.SinkDataInterface;
 import net.mokai.quicksandrehydrated.entity.entityQuicksandVar;
 import org.spongepowered.asm.mixin.Mixin;
@@ -171,7 +171,7 @@ public abstract class SlowdownMixin implements entityQuicksandVar {
         Vec3 ePos = pEntity.position();
         Level eLevel = pEntity.level();
 
-        if (eLevel.getBlockState(pEntity.blockPosition()).getBlock() instanceof QuicksandBase) {
+        if (eLevel.getBlockState(pEntity.blockPosition()).getBlock() instanceof SinkableBase) {
             return pEntity.blockPosition();
         }
 
@@ -185,16 +185,16 @@ public abstract class SlowdownMixin implements entityQuicksandVar {
         // Should eventually change to a more sophisticated approach
         // that accurately gets the closest quicksand block, instead.
 
-        if (eLevel.getBlockState(blockPosOffset).getBlock() instanceof QuicksandBase) {
+        if (eLevel.getBlockState(blockPosOffset).getBlock() instanceof SinkableBase) {
             return blockPosOffset;
         }
-        else if (eLevel.getBlockState(blockPosOffset.north()).getBlock() instanceof QuicksandBase) {
+        else if (eLevel.getBlockState(blockPosOffset.north()).getBlock() instanceof SinkableBase) {
             return  blockPosOffset.north();
         }
-        else if (eLevel.getBlockState(blockPosOffset.west()).getBlock() instanceof QuicksandBase) {
+        else if (eLevel.getBlockState(blockPosOffset.west()).getBlock() instanceof SinkableBase) {
             return  blockPosOffset.west();
         }
-        else if (eLevel.getBlockState(blockPosOffset.north().west()).getBlock() instanceof QuicksandBase) {
+        else if (eLevel.getBlockState(blockPosOffset.north().west()).getBlock() instanceof SinkableBase) {
             return blockPosOffset.north().west();
         }
         return null;
@@ -269,7 +269,7 @@ public abstract class SlowdownMixin implements entityQuicksandVar {
                     }
                 }
 
-                QuicksandBase qs = (QuicksandBase) bs.getBlock();
+                SinkableBase qs = (SinkableBase) bs.getBlock();
                 qs.applyQuicksandEffects(bs, eLevel, bp, thisEntity);
 
             }
@@ -380,8 +380,8 @@ public abstract class SlowdownMixin implements entityQuicksandVar {
         if (stuckBlockPos != null) {
             Block stuckBlock = thisEntity.level().getBlockState(stuckBlockPos).getBlock();
 
-            if (stuckBlock instanceof QuicksandBase) {
-                QuicksandBase qsBlock = (QuicksandBase) stuckBlock;
+            if (stuckBlock instanceof SinkableBase) {
+                SinkableBase qsBlock = (SinkableBase) stuckBlock;
                 double depth = qsBlock.getDepth(thisEntity.level(), thisEntity.blockPosition(), thisEntity);
                 return qsBlock.canStepOut(depth);
             }

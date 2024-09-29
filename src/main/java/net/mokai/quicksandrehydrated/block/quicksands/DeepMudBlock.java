@@ -8,107 +8,36 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.RedStoneOreBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.mokai.quicksandrehydrated.block.quicksands.core.QuicksandBase;
-import net.mokai.quicksandrehydrated.block.quicksands.core.QuicksandBehavior;
+import net.mokai.quicksandrehydrated.block.quicksands.core.SinkableBase;
+import net.mokai.quicksandrehydrated.block.quicksands.core.SinkableBehavior;
 import net.mokai.quicksandrehydrated.entity.EntityBubble;
 import net.mokai.quicksandrehydrated.entity.entityQuicksandVar;
-import net.mokai.quicksandrehydrated.registry.ModParticles;
-import net.mokai.quicksandrehydrated.util.BodyDepthThreshold;
-import net.mokai.quicksandrehydrated.util.EasingHandler;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 import java.util.Random;
 
-import static net.mokai.quicksandrehydrated.registry.ModParticles.QUICKSAND_BUBBLE_PARTICLES;
 import static org.joml.Math.*;
 
-public class DeepMudBlock extends QuicksandBase {
+public class DeepMudBlock extends SinkableBase {
 
     public String coverageTexture() {
         return "qsrehydrated:textures/entity/coverage/mud_coverage.png";
     }
 
+    //TODO: separate this out into two separate classes; one partially solid block that handles depths 1-3,
+    //TODO: and use a fourth for bottomless, if even required
+
+
     public double maxDepth;
-    public DeepMudBlock(Properties pProperties, QuicksandBehavior QSB, double mudDepth) {
+    public DeepMudBlock(Properties pProperties, SinkableBehavior QSB, double mudDepth) {
         super(pProperties, QSB);
         this.maxDepth = mudDepth;
     }
 
-    // helps determine what behaviour the mud should have. Is the entity deep enough to get stuck in place?
-    /**
-     * The Body Depth Threshold where the body is considered as stuck.
-     */
-    public static final BodyDepthThreshold STUCK_DEPTH = BodyDepthThreshold.KNEE;
 
-    /**
-     * Find out, if the depth level is considered as stuck.
-     * @param depthRaw The depth level.
-     * @return <code>true</code>, if it's considered as stuck.
-     */
-    public boolean depthIsStuck(double depthRaw) {
-        return depthRaw >= STUCK_DEPTH.depth;
-    }
-
-    @Override
-    public double getWalkSpeed(double depthRaw) {
-
-        return EasingHandler.doubleListInterpolate(depthRaw, new double[]{0.9, 0.55, 0.15, 0.1, 0.0});
-
-//        if (!depthIsStuck(depthRaw)) {
-//            return 0.99;
-//        }
-//        else {
-//            double normalDepth = (depthRaw- STUCK_DEPTH.depth) / (2- STUCK_DEPTH.depth); // start the array at knee depth
-//            return EasingHandler.doubleListInterpolate(normalDepth, new double[]{0.6, 0.35, 0.1, 0.0, 0.0});
-//        }
-    }
-
-    @Override
-    public double getVertSpeed(double depthRaw) {
-        return 0.2d;
-//        if (!depthIsStuck(depthRaw)) {
-//            return 0.3;
-//        } else {
-//            return interpolateAfterKnee(depthRaw, .3, .1);
-//        }
-    }
-
-    @Override
-    public double getTugPointSpeed(double depthRaw) {
-
-        return 1.0;
-
-//        if (!depthIsStuck(depthRaw)) {
-//            return 1.0; // go right to player if above
-//        }
-//        else {
-//            return 0.001;
-//            //double normalDepth = (depthRaw-stuckDepth) / (2-stuckDepth); // start the array at knee depth
-//            //return EasingHandler.doubleListInterpolate(normalDepth, new double[]{0.001}); // player not allowed to move
-//        }
-    }
-
-    private double interpolateAfterKnee(double depth, double a, double b) {
-        double normalDepth = (depth - STUCK_DEPTH.depth) / (2- STUCK_DEPTH.depth); // start the array at knee depth
-        return EasingHandler.doubleListInterpolate(normalDepth, new double[]{a, b}); // player not allowed to move
-
-    }
-
-
-
-    @Override
-    public double getTugStrengthHorizontal(double depthRaw) {
-        return 0.0d;
-//        if (!depthIsStuck(depthRaw)) {
-//            return 0.0; // go right to player if above
-//        } else {
-//            return interpolateAfterKnee(depthRaw, 0.15, 0.3);
-//        }
-    }
     public double getTugStrengthVertical(double depth) {
         return 0.0d;
     }

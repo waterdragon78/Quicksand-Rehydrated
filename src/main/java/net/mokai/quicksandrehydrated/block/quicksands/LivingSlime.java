@@ -2,8 +2,6 @@ package net.mokai.quicksandrehydrated.block.quicksands;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -15,25 +13,23 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.mokai.quicksandrehydrated.block.quicksands.core.QuicksandBase;
-import net.mokai.quicksandrehydrated.block.quicksands.core.QuicksandBehavior;
+import net.mokai.quicksandrehydrated.block.quicksands.core.SinkableBase;
+import net.mokai.quicksandrehydrated.block.quicksands.core.SinkableBehavior;
 import net.mokai.quicksandrehydrated.entity.entityQuicksandVar;
 import net.mokai.quicksandrehydrated.registry.ModParticles;
 import net.mokai.quicksandrehydrated.util.EasingHandler;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
 import static org.joml.Math.clamp;
 import static org.joml.Math.lerp;
 
-public class LivingSlime extends QuicksandBase {
+public class LivingSlime extends SinkableBase {
 
     public String coverageTexture() {
         return "qsrehydrated:textures/entity/coverage/slime_coverage.png";
     }
 
-    public LivingSlime(Properties pProperties, QuicksandBehavior QSB) {super(pProperties, QSB);}
+    public LivingSlime(Properties pProperties, SinkableBehavior QSB) {super(pProperties, QSB);}
 
     public double getSink(double depthRaw) { return EasingHandler.doubleListInterpolate(depthRaw/2, new double[]{.001d, .009d, .009d, .009d, .009d}); }
 

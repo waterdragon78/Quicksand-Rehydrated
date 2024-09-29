@@ -3,7 +3,7 @@ package net.mokai.quicksandrehydrated.util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.mokai.quicksandrehydrated.block.quicksands.core.QuicksandBase;
+import net.mokai.quicksandrehydrated.block.quicksands.core.SinkableBase;
 
 public class EasingHandler {
 
@@ -51,7 +51,7 @@ public class EasingHandler {
 
             BlockPos check = new BlockPos(pPos.getX(), (int) currentHeight, pPos.getZ());
             playercube = check;
-        } while (pLevel.getBlockState(playercube).getBlock() instanceof QuicksandBase);
+        } while (pLevel.getBlockState(playercube).getBlock() instanceof SinkableBase);
 
         depth = playercube.getY() - playerY - offset;
 
